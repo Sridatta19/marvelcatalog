@@ -25,11 +25,11 @@ var styles = StyleSheet.create({
   }
 });
 
-const Events = ({characterInfo, navigator}) => {
-  let items = characterInfo.events.items;
+const Series = ({characterInfo, navigator}) => {
+  let items = characterInfo.series.items;
   let list = items.map((item, index) => {
     return (
-      <Event event={item} key={index} navigator={navigator}/>
+      <SeriesComponent series={item} key={index} navigator={navigator}/>
     )
   });
   return (
@@ -39,33 +39,33 @@ const Events = ({characterInfo, navigator}) => {
   );
 }
 
-class Event extends Component{
+class SeriesComponent extends Component{
 
-  goToEventInfo = () => {
-    let eventArray = this.props.event.resourceURI.split('/');
-    let eventId = eventArray[eventArray.length - 1];
-    let event;
-    api.getEventInfo(eventId)
+  goToSeriesInfo = () => {
+    let seriesArray = this.props.series.resourceURI.split('/');
+    let seriesId = seriesArray[seriesArray.length - 1];
+    let series;
+    api.getSeriesInfo(seriesId)
           .then((res) => {
-            event = res.data.results[0];
+            series = res.data.results[0];
             this.props.navigator.push({
               component: InfoDetails,
               backButtonTitle: 'Back',
-              title: 'Event Info',
-              passProps: {infoObject: event}
+              title: 'Series Info',
+              passProps: {infoObject: series}
             });
           })
   }
 
   render(){
-    let {event} = this.props;
+    let {series} = this.props;
     return (
       <View>
         <View style={styles.rowContainer}>
           <Text
             style={styles.rowTitle}
-            onPress={this.goToEventInfo}
-          >{event.name}</Text>
+            onPress={this.goToSeriesInfo}
+          >{series.name}</Text>
         </View>
         <Separator />
       </View>
@@ -73,8 +73,8 @@ class Event extends Component{
   }
 };
 
-Events.propTypes = {
+Series.propTypes = {
   characterInfo: PropTypes.object.isRequired
 }
 
-export default Events;
+export default Series;

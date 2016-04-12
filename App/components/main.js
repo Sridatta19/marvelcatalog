@@ -3,6 +3,7 @@ import React, {
   Text,
   TextInput,
   View,
+  Image,
   Component,
   StyleSheet,
   TouchableHighlight,
@@ -19,7 +20,7 @@ var styles = StyleSheet.create({
     marginTop: 65,
     flexDirection: 'column',
     justifyContent: 'center',
-    backgroundColor: '#48BBEC'
+    backgroundColor: '#EC4869'
   },
   title: {
     marginBottom: 20,

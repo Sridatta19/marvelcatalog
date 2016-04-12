@@ -10,6 +10,8 @@ import React, {
 } from 'react-native'
 import * as api from '../utils/api'
 import Events from './events'
+import Series from './series'
+import Stories from './stories'
 
 var styles = StyleSheet.create({
   container: {
@@ -54,6 +56,24 @@ class Dashboard extends Component{
     })
   }
 
+  goToSeries(){
+    this.props.navigator.push({
+      component: Series,
+      backButtonTitle: 'Back',
+      title: 'Series',
+      passProps: {characterInfo: this.props.characterInfo}
+    })
+  }
+
+  goToStories(){
+    this.props.navigator.push({
+      component: Stories,
+      backButtonTitle: 'Back',
+      title: 'Stories',
+      passProps: {characterInfo: this.props.characterInfo}
+    })
+  }
+
   render(){
     let {characterInfo} = this.props;
     let imagePath = characterInfo.thumbnail.path + '.' + characterInfo.thumbnail.extension;
@@ -61,6 +81,7 @@ class Dashboard extends Component{
       <View style={styles.container}>
         <Image source={{uri: imagePath}} style={styles.image}></Image>
         <TouchableHighlight
+            onPress={this.goToSeries.bind(this)}
             style={this.makeBackground(0)}
             underlayColor='#88D4F5'>
             <Text style={styles.buttonText}> View Series </Text>
@@ -73,6 +94,7 @@ class Dashboard extends Component{
         </TouchableHighlight>
         <TouchableHighlight
             style={this.makeBackground(2)}
+            onPress={this.goToStories.bind(this)}
             underlayColor='#9BAAF3'>
             <Text style={styles.buttonText}> View Stories </Text>
         </TouchableHighlight>

@@ -25,11 +25,11 @@ var styles = StyleSheet.create({
   }
 });
 
-const Events = ({characterInfo, navigator}) => {
-  let items = characterInfo.events.items;
+const Stories = ({characterInfo, navigator}) => {
+  let items = characterInfo.stories.items;
   let list = items.map((item, index) => {
     return (
-      <Event event={item} key={index} navigator={navigator}/>
+      <Story story={item} key={index} navigator={navigator}/>
     )
   });
   return (
@@ -39,33 +39,33 @@ const Events = ({characterInfo, navigator}) => {
   );
 }
 
-class Event extends Component{
+class Story extends Component{
 
-  goToEventInfo = () => {
-    let eventArray = this.props.event.resourceURI.split('/');
-    let eventId = eventArray[eventArray.length - 1];
-    let event;
-    api.getEventInfo(eventId)
+  goToStoryInfo = () => {
+    let storyArray = this.props.story.resourceURI.split('/');
+    let storyId = storyArray[storyArray.length - 1];
+    let story;
+    api.getStoryInfo(storyId)
           .then((res) => {
-            event = res.data.results[0];
+            story = res.data.results[0];
             this.props.navigator.push({
               component: InfoDetails,
               backButtonTitle: 'Back',
-              title: 'Event Info',
-              passProps: {infoObject: event}
+              title: 'Story Info',
+              passProps: {infoObject: story}
             });
           })
   }
 
   render(){
-    let {event} = this.props;
+    let {story} = this.props;
     return (
       <View>
         <View style={styles.rowContainer}>
           <Text
             style={styles.rowTitle}
-            onPress={this.goToEventInfo}
-          >{event.name}</Text>
+            onPress={this.goToStoryInfo}
+          >{story.name}</Text>
         </View>
         <Separator />
       </View>
@@ -73,8 +73,8 @@ class Event extends Component{
   }
 };
 
-Events.propTypes = {
+Stories.propTypes = {
   characterInfo: PropTypes.object.isRequired
 }
 
-export default Events;
+export default Stories;

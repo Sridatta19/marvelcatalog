@@ -41,20 +41,25 @@ var styles = StyleSheet.create({
   }
 });
 
-const InfoDetails = ({eventInfo}) => {
-  console.log("API RESPONSE EVENT DETAILS", eventInfo);
-  let imagePath = eventInfo.thumbnail.path + '.' + eventInfo.thumbnail.extension;
+const InfoDetails = ({infoObject}) => {
+  console.log("API RESPONSE EVENT DETAILS", infoObject);
+  let source;
+  if(infoObject.thumbnail){
+      source = {uri: infoObject.thumbnail.path + '.' + infoObject.thumbnail.extension};
+  }else{
+      source = require('../images/notfound.jpg');
+  }
   return (
     <View style={styles.container}>
-      <Image style={styles.image} source={{uri: imagePath}}/>
-      <Text style={styles.name}> {eventInfo.title} </Text>
-      <Text style={styles.description}> {eventInfo.description} </Text>
+      <Image style={styles.image} source={source}/>
+      <Text style={styles.name}> {infoObject.title} </Text>
+      <Text style={styles.description}> {infoObject.description} </Text>
     </View>
   )
 }
 
 InfoDetails.propTypes = {
-  eventInfo: PropTypes.object.isRequired
+  infoObject: PropTypes.object.isRequired
 }
 
 export default InfoDetails;
